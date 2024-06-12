@@ -1,0 +1,37 @@
+METODO:
+INTERPOLACION DE LAGRANGE:
+
+TAREAS A REALIZAR:
+
+1. Capturar los puntos conocidos (coordenadas).
+	(x, y)
+
+2. Extraer los datos.
+	n	=	cantidad de puntos conocidos
+	i	=	0 ... n-1
+	j	=	0 ... n-1
+
+	X0 ... Xn 		->	puntos conocidos
+	F(X0)..F(Xn) 	->	y (imagenes de x)
+
+3. Realizar iteraciones basadas en i
+	i	=	0			(cambiar valor en cada iteracion)
+	j	!=	i	-> 1, 2 	(los valores que puede tomar j excepto igual a i)
+	
+	Li(x) = multiplicativo de X-Xj / Xi - Xj
+
+	3.1. Reemplazar los valores de Xi y Xj
+	3.2. Desarrollar la expresion
+	3.3. Multiplicar los Polinomios de grado 1
+	3.4. Desarrollar el denominador
+	3.5. Dividir los coeficientes del Polinomio del 3.3 entre el resultado de 3.4
+	3.6. Guardar polinomio resultante Li(x)	
+
+4. Encontrar Polinomio Lagrange
+
+	P(x) = sumatoria de F(Xi) * Li(X)
+	
+	4.1. Multiplicar F(Xi) * Li(X)
+	4.2. Sumar Polinomios del punto anterior
+
+5. Mostrar Polinomio de Lagrange
