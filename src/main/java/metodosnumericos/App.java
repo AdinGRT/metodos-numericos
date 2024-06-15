@@ -10,12 +10,18 @@ public class App {
 
         InterpolacionLarange interpolacionLarange = new InterpolacionLarange();
 
-        //CAPTURA PUNTOS CONOCIDOS POR CONSOLA
-        interpolacionLarange.capturarPuntos();
-
-        //MUESTRA PUNTOS CONOCIDOS EN CONSOLA
-        interpolacionLarange.imprimirPuntos();
 
 
+//        //CAPTURA PUNTOS CONOCIDOS POR CONSOLA
+//        interpolacionLarange.capturarPuntos();
+//
+//        //MUESTRA PUNTOS CONOCIDOS EN CONSOLA
+//        interpolacionLarange.imprimirPuntos();
+//
+//        System.out.println(interpolacionLarange.getN());
+//
+//        interpolacionLarange.imprimirXY();
+
+        interpolacionLarange.iterar(3);
     }
 }

@@ -4,21 +4,21 @@ INTERPOLACION DE LAGRANGE:
 TAREAS A REALIZAR:
 
 1. Capturar los puntos conocidos (coordenadas).
-	(x, y)
+	(x, y)                                                                          ok
 
 2. Extraer los datos.
-	n	=	cantidad de puntos conocidos
-	i	=	0 ... n-1
-	j	=	0 ... n-1
+	n	=	cantidad de puntos conocidos                                            ok
+	i	=	0 ... n-1                                                               ok
+	j	=	0 ... n-1                                                               ok
 
 	X0 ... Xn 		->	puntos conocidos
 	F(X0)..F(Xn) 	->	y (imagenes de x)
 
 3. Realizar iteraciones basadas en i
-	i	=	0			(cambiar valor en cada iteracion)
-	j	!=	i	-> 1, 2 	(los valores que puede tomar j excepto igual a i)
+	i	=	0			(cambiar valor en cada iteracion)                           ok
+	j	!=	i	-> 1, 2 	(los valores que puede tomar j excepto igual a i)       ok
 	
-	Li(x) = multiplicativo de X-Xj / Xi - Xj
+	Li(x) = multiplicativo de X-Xj / Xi-Xj
 
 	3.1. Reemplazar los valores de Xi y Xj
 	3.2. Desarrollar la expresion
