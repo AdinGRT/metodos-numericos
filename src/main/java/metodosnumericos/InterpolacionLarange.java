@@ -34,6 +34,7 @@ public class InterpolacionLarange {
             System.out.println(imprimirValoresJ(i));
             System.out.println("");
 
+            //OBTENER TODOS LOS X - Xj
             this.polinomiosXmenosXj = obtenerXmenosXj(i);
 
             System.out.print("L" + i + "(x) = ");
@@ -48,14 +49,48 @@ public class InterpolacionLarange {
             System.out.print(multiplicativoXiMenosXj(this.x, i));
             System.out.println("");
 
+            System.out.print("L" + i + "(x) = ");
+            System.out.println(obtenerLiDeX(multiplicativoXmenosXj(this.polinomiosXmenosXj), multiplicativoXiMenosXj(this.x, i)).imprimir());
+            System.out.println("");
+
             this.polinomiosLiDeX.add(obtenerLiDeX(multiplicativoXmenosXj(this.polinomiosXmenosXj), multiplicativoXiMenosXj(this.x, i)));
 
-            //MULTIPLICAR EL ENUMERADOR
-
-            //OBTENER TODOS LOS X - Xj
         }
+        System.out.print("P(X) = ");
+        System.out.println(imprimirPdeX(this.y, this.polinomiosLiDeX));
+        this.polinomioLarange = desarrollarPdeX(this.y, this.polinomiosLiDeX);
+
+        System.out.println("");
+        System.out.print("P(X) = ");
+        System.out.println(this.polinomioLarange.imprimir());
+
     }
 
+    private Polinomio desarrollarPdeX (double [] y, List<Polinomio> polinomiosLiDeX) {
+        Polinomio polinomioResultante = new Polinomio(0.0);
+        for (int i = 0; i < y.length; i++) {
+            polinomioResultante = polinomioResultante.sumar(calcularFdeXiPorLiDeX(y[i], polinomiosLiDeX.get(i)));
+        }
+        return polinomioResultante;
+    }
+
+    private Polinomio calcularFdeXiPorLiDeX (double fDeXi, Polinomio liDeX) {
+        Polinomio polinomioResultante = new Polinomio(fDeXi);
+        return polinomioResultante.multiplicar(liDeX);
+    }
+
+    private String imprimirPdeX (double [] y, List<Polinomio> polinomiosLiDeX) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < y.length; i++) {
+            sb.append(y[i] + " ( " + polinomiosLiDeX.get(i).imprimir() + " ) ");
+            if (i != y.length-1) {
+                if (y[i] > 0) {
+                    sb.append(" +");
+                }
+            }
+        }
+        return sb.toString();
+    }
 
     private String imprimirValoresJ(int i) {
         StringBuilder sb = new StringBuilder();
@@ -125,6 +160,7 @@ public class InterpolacionLarange {
         double multiplica = 1.0 / denominador;
         return multiplicativoXmenosXj.multiplicar(new Polinomio(multiplica));
     }
+
 
 
 
