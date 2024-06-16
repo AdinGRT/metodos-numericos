@@ -13,7 +13,6 @@ public class Polinomio {
         coeficientes = new double[coef.length];
         for (int i = coeficientes.length - 1; i >= 0; --i) {
             coeficientes[i] = coef[coeficientes.length-1-i];
-            System.out.println("Test ->     Coeficiente de x^" + i + ": "+coeficientes[i]);
         }
     }
 
@@ -45,18 +44,27 @@ public class Polinomio {
             }
         }
 
-        public void imprimir()
+        public String imprimir()
         {
+            StringBuilder sb = new StringBuilder();
             for ( int i = grado(); i >= 0; --i )
             {
                 if ( coeficientes[i] != 0 )
                 {
-                    if ( i != grado() ) System.out.print(" + ");
-                    if ( coeficientes[i] != 1 || i == 0 ) System.out.print(coeficientes[i]);
-                    if ( i > 0 ) System.out.print("x");
-                    if ( i > 1 ) System.out.print("^" + i);
+                    if ( i != grado()  ) {
+                        if (coeficientes[i] > 0) {
+                            sb.append(" +");
+                        } else {
+                            sb.append(" ");
+                        }
+                    }
+
+                    if ( coeficientes[i] != 1 || i == 0 ) sb.append(coeficientes[i]);
+                    if ( i > 0 ) sb.append("x");
+                    if ( i > 1 ) sb.append("^" + i);
                 }
             }
+            return sb.toString();
         }
 
         Polinomio sumar(Polinomio otro)

@@ -6,7 +6,7 @@ public class TestPolinomio {
 
         System.out.println("Probando POLINOMIO");
 
-        Polinomio polinomio = new Polinomio(2.0, 4.0, 3.0);
+        Polinomio polinomio = new Polinomio(-2.0, 4.0, -3.0);
         polinomio.imprimir();
 
     }

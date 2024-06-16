@@ -10,34 +10,122 @@ public class InterpolacionLarange {
 
     private int n; // Cantidad de puntos conocidos
     private double[] x, y; // Puntos conocidos
+    private List<Polinomio> polinomiosXmenosXj;
     private List<Polinomio> polinomiosLiDeX;
     private Polinomio polinomioLarange;
 
     public InterpolacionLarange() {
     }
 
+    public InterpolacionLarange(List<Coordenada> puntosConocidos) {
+        this.puntosConocidos = puntosConocidos;
+    }
+
     public void iterar(int n) {
-        int[] j = new int[n-1]; // Valores para cada iteracion 0 ... n-1    j != i
-        int contador;
-        double[] coeficientes;
+
+        this.polinomiosLiDeX = new ArrayList<>();
 
         for (int i = 0; i < n; i++) {
-            System.out.println("Test i = " + i);
-            contador = 0;
-            for (int k = 0; k < n; k++) {
-                if (i != k) {
-                    j[contador] = k;
-                    System.out.println("Test j = " + j[contador]);
-                    contador++;
-                }
-            }
+            System.out.println("");
+            System.out.println("Iteracion: " + i);
+            System.out.println("i = " + i);
+
+
+            System.out.println(imprimirValoresJ(i));
+            System.out.println("");
+
+            this.polinomiosXmenosXj = obtenerXmenosXj(i);
+
+            System.out.print("L" + i + "(x) = ");
+            System.out.print(imprimirXmenosXj(this.polinomiosXmenosXj));
+            System.out.print("  /  ");
+            System.out.print(imprimirXiMenosXj(this.x, i));
+            System.out.println("");
+
+            System.out.print("L" + i + "(x) = ");
+            System.out.print(multiplicativoXmenosXj(this.polinomiosXmenosXj).imprimir());
+            System.out.print("  /  ");
+            System.out.print(multiplicativoXiMenosXj(this.x, i));
+            System.out.println("");
+
+            this.polinomiosLiDeX.add(obtenerLiDeX(multiplicativoXmenosXj(this.polinomiosXmenosXj), multiplicativoXiMenosXj(this.x, i)));
 
             //MULTIPLICAR EL ENUMERADOR
-            for (int k = 0; k < j.length; k++) {
-                
-            }
+
+            //OBTENER TODOS LOS X - Xj
         }
     }
+
+
+    private String imprimirValoresJ(int i) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("j = ");
+        for (int j = 0; j < n; j++) {
+            if (i != j) {
+                sb.append(j);
+                if (j != n-1) sb.append(", ");
+            }
+        }
+        return sb.toString();
+    }
+
+    private List<Polinomio> obtenerXmenosXj (int i) {
+        Polinomio polinomio;
+        List<Polinomio>polinomiosXmenosXj = new ArrayList<>();
+        for (int j = 0; j < n; j++) {
+            if (i != j) {
+                double x = 1;
+                double xj = this.x[j];
+                polinomio = new Polinomio(x, xj*-1);
+                polinomiosXmenosXj.add(polinomio);
+            }
+        }
+        return polinomiosXmenosXj;
+    }
+
+    public String imprimirXmenosXj(List<Polinomio> polinomiosXmenosXj) {
+        StringBuilder sb = new StringBuilder();
+        for (Polinomio pol : polinomiosXmenosXj) {
+            sb.append("( ");
+            sb.append(pol.imprimir());
+            sb.append(" ) ");
+        }
+        return sb.toString();
+    }
+
+    public String imprimirXiMenosXj(double[] x, int i) {
+        StringBuilder sb = new StringBuilder();
+        for (int j = 0; j < n; j++) {
+            if (i != j) {
+                sb.append("( " + x[i] + " " + -1*x[j] + " ) ");
+            }
+        }
+        return sb.toString();
+    }
+
+    private Polinomio multiplicativoXmenosXj(List<Polinomio> polinomiosXmenosXj) {
+        Polinomio polinomioResultante = new Polinomio(1.0);
+        for (Polinomio pol : polinomiosXmenosXj) {
+            polinomioResultante = polinomioResultante.multiplicar(pol);
+        }
+        return polinomioResultante;
+    }
+
+    private double multiplicativoXiMenosXj(double[] x, int i) {
+        double resultado = 1.0;
+        for (int j = 0; j < n; j++) {
+            if (i != j) {
+                resultado = resultado * (x[i] + -1*x[j]);
+            }
+        }
+        return resultado;
+    }
+
+    private Polinomio obtenerLiDeX (Polinomio multiplicativoXmenosXj, double denominador) {
+        double multiplica = 1.0 / denominador;
+        return multiplicativoXmenosXj.multiplicar(new Polinomio(multiplica));
+    }
+
 
 
 
